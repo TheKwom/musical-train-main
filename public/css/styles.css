@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;1,600&display=swap");
+
+body {
+  background-color: white;
+  margin: 0 auto;
+  width: 100%;
+  border-radius: 10px;
+  font-family: "Montserrat", sans-serif;
+}
+/**********************************
+ Top Header Styling
+***********************************/
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+}
+
+#top-header a:visited,
+#top-header a:link {
+  color: black;
+  text-decoration: none;
+}
+
+.siteName {
+  font-size: 40px;
+  font-weight: 900;
+}
+
+/**********************************
+ Navigation Styling
+***********************************/
+nav {
+  text-decoration: none;
+}
+
+nav > ul {
+  list-style-type: none;
+  padding: 10px 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-around;
+  background-color: #585959;
+}
+
+nav > ul > li {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 8px 16px;
+}
+
+/**********************************
+ Body
+***********************************/
+.welcome_message {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 20px 0;
+}
+
+.featured {
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+  width: 100%;
+  text-align: center;
+}
+
+.featured_details {
+  position: absolute;
+  left: 6px;
+  top: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #bf4158;
+  text-align: left;
+}
+
+.featured_details > .featured_name {
+  margin: 0;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.featured_details > ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+}
+
+.featured_details > ul > li {
+  font-style: italic;
+  margin: 0 0 2px 0;
+}
+
+.featured_details > button {
+  margin: 6px 0 0 0;
+  height: 50px;
+  width: 168px;
+  font-size: 20px;
+  font-weight: 600;
+  background-color: #d9984a;
+}
+
+.info_section {
+  display: block;
+}
+
+.upgrades,
+.reviews {
+  width: 100%;
+}
+
+.upgrades > h3,
+.reviews > h3 {
+  font-size: 22px;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.upgrades > .upgrade_options {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% 50%;
+  justify-items: center;
+}
+
+.upgrades > .upgrade_options > .upgrade_item {
+  text-align: center;
+  justify-content: center;
+  width: 95%;
+  margin: 0 0 20px 0;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.upgrades > .upgrade_options > .upgrade_item > .upgrade_item_image_container {
+  background-color: #bf4158;
+  border: 1px solid black;
+  border-radius: 1px;
+  width: 100%;
+  height: 90px;
+  display: flex;
+  align-items: center;
+}
+
+.upgrades
+  > .upgrade_options
+  > .upgrade_item
+  > .upgrade_item_image_container
+  > img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.upgrades > .upgrade_options > .upgrade_item > a:hover {
+  cursor: pointer;
+}
+
+.reviews > ul {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.reviews > ul > li {
+  margin-bottom: 18px;
+}
+
+@media screen and (min-width: 700px) {
+  html {
+    height: 100vh;
+    background-image: url("/images/site/small_check.jpg");
+    align-items: center;
+  }
+
+  body {
+    margin: 16px auto;
+    border: #bf4158 solid 6px;
+    width: 80%;
+    padding: 10px;
+  }
+
+  #top-header {
+    margin: 10px 0 20px 0;
+  }
+
+  .featured_details {
+    left: 40px;
+    top: 30px;
+  }
+
+  .featured_details > .featured_name {
+    margin: 0 0 6px 0;
+  }
+
+  .featured_details > button {
+    margin: 36px 0 0 0;
+  }
+
+  .info_section {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+  }
+
+  .upgrades,
+  .reviews {
+    width: 50%;
+  }
+
+  .upgrades > h3,
+  .reviews > h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 40px;
+  }
+}
