@@ -80,7 +80,6 @@ Util.buildClassificationGrid = async function (data) {
 /* **************************************
  * Build the inventory view HTML
  * ************************************ */
-
 Util.BuildInvInfo = async function (data) {
   let info;
   if (data.length > 0) {

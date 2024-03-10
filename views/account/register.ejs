@@ -1,0 +1,51 @@
+<% if(title){ %>
+<h1><%= title %></h1>
+<%} else {
+    res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <%  }) %>
+</ul>
+<% } %>
+
+<div class="form-body">
+  <section class="form-container">
+    <form class="form" action="/account/register" method="post">
+      <p>All fields are required.</p>
+      <label for="account_firstname">First Name:</label>
+      <input type="text" class="form-field" id="account_firstname" name="account_firstname" placeholder="Mike" required value="<%= locals.account_firstname %>"><br>
+      <label for="account_lastname">Last Name:</label>
+      <input type="text" class="form-field" id="account_lastname" name="account_lastname" placeholder="Davis" required value="<%= locals.account_lastname %>"><br>
+      <label for="account_email">Email: </label>
+      <input type="email" class="form-field" id="account_email" name="account_email" placeholder="email@email.com" required value="<%= locals.account_email %>"><br>
+      <label for="account_password">Password: </label>
+      <input type="password" class="form-field" id="account_password" name="account_password" placeholder="Choose your password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"><br>
+      <span class="show-pass-btn">Show Password</span>
+      <p>Passwords must be at least 12 characters and include
+        one capital letter, one lowercase letter, one number, and one non-alphanumeric character.</p>
+      <hr>
+      <button type="submit" class="form-button" name="register">Register</button>
+    </form>
+  </section>
+</div>
+<script>
+  // Password Show/hide
+  const passButton = document.querySelector(".show-pass-btn");
+  passButton.addEventListener("click", function() {
+    const passInput = document.getElementById("account_password");
+    const type = passInput.getAttribute("type");
+    if (type === "password") {
+      passInput.setAttribute("type", "text");
+      passButton.innerHTML = "Hide Password";
+    } else {
+      passInput.setAttribute("type", "password");
+      passButton.innerHTML = "Show Password";
+    }
+  });
+</script>

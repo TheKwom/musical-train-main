@@ -1,0 +1,19 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<!-- Message -->
+<%- messages() %>
+
+<% } else {
+              res.redirect('/')
+            } %>
+
+<div class="form-body">
+  <section class="form-container">
+    <form class="form" id="addClassForm" action="/inv/add-class" method="post">
+      <label for="classification_name">Classification: </label>
+      <input type="text" class="form-field" id="classification_name" name="classification_name" placeholder="Classification" required value="<%= locals.classification_name %>"><br>
+      <button type="submit" class="form-button" name="add-class-button">Add Classification</button>
+    </form>
+  </section>
+
+</div>
