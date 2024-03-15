@@ -12,40 +12,36 @@
   <section class="form-container">
     <form class="form" action="/inv/add-inventory" method="post">
       <label for="classification"><b>Classification:</b></label>
-      <select class="form-field" id="class" name="classification_name">
-        <option value="1">Custom</option>
-        <option value="2">Sport</option>
-        <option value="3">SUV</option>
-        <option value="4">Truck</option>
-        <option value="5">Sedan</option>
-      </select>
+      <%- form %>
 
       <label for="inv_make"><b>Make:</b></label>
-      <input class="form-field" type="text" placeholder="Min of 3 characters" name="inv_make" required>
+      <input class="form-field" id="inv_make" type="text" placeholder="Min of 3 characters" name="inv_make" required value="<%= locals.inv_make %>">
 
-      <label for="inv_model"><b>Model:</b></label>
-      <input class="form-field" type="text" placeholder="Min of 3 characters" name="inv_model" required>
+      <label for=" inv_model"><b>Model:</b></label>
+      <input class="form-field" id="inv_model" type="text" placeholder="Min of 3 characters" name="inv_model" required value="<%= locals.inv_model %>">
 
       <label for="inv_year"><b>Year:</b></label>
-      <input class="form-field" type="text" placeholder="4-digit year" name="inv_year" required>
+      <input class="form-field" id="inv_year" type="text" placeholder="4-digit year" name="inv_year" required value="<%= locals.inv_year %>">
 
       <label for="inv_description"><b>Description:</b></label>
-      <input class="form-field" type="text" name="inv_description" required>
+      <input class="form-field" id="inv_description" type="text" name="inv_description" required value="<%= locals.inv_description %>">
 
       <label for="inv_image"><b>Image Path:</b></label>
-      <input class="form-field" type="text" value="/images/vehicles/no-image.png" name="inv_image" required>
+      <span>If no image use this path /images/vehicles/no-image.jpg</span>
+      <input class="form-field" id="inv_image" type="text" name="inv_image" required value="<%= locals.inv_image %>">
 
       <label for="inv_thumbnail"><b>Thumbnail Path:</b></label>
-      <input class="form-field" type="text" value="/images/vehicles/no-image-tn.png" name="inv_thumbnail" required>
+      <span>If no image use this path /images/vehicles/no-image-tn.jpg</span>
+      <input class="form-field" id="inv_thumbnail" type="text" name="inv_thumbnail" required value="<%= locals.inv_thumbnail %>">
 
       <label for="inv_price"><b>Price:</b></label>
-      <input class="form-field" type="text" placeholder="Decimal or integer" name="inv_price" required>
+      <input class="form-field" id="inv_price" type="text" placeholder="Decimal or integer" name="inv_price" required value="<%= locals.inv_price %>">
 
       <label for="inv_miles"><b>Miles:</b></label>
-      <input class="form-field" type="text" placeholder="Digits only" name="inv_miles" required>
+      <input class="form-field" id="inv_miles" type="text" placeholder="Digits only" name="inv_miles" required value="<%= locals.inv_miles %>">
 
       <label for="inv_color"><b>Color:</b></label>
-      <input class="form-field" type="text" name="inv_color" required>
+      <input class="form-field" id="inv_color" type="text" name="inv_color" required>
 
       <button class="form-button" type="submit">Add Vehicle</button>
     </form>

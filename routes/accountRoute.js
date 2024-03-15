@@ -15,9 +15,17 @@ router.get(
   utilities.handleErrors(accountController.buildRegister)
 );
 
-// Process the login attempt
+// Deliver Logged In view
+router.get(
+  "/",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.loggedIn)
+);
+
+// Process the login request
 router.post("/login", (req, res) => {
-  res.status(200).send("login process");
+  res.status(200).send("Logged In");
+  res.redirect("/account");
 });
 
 // Process the registration data

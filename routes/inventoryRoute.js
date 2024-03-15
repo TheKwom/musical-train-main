@@ -21,9 +21,11 @@ router.post(
 // Route to add new vehicle view
 router.get("/add-inventory", invController.buildAddInventory);
 // Route to add new vehicle
-router.post(
-  "/add-inventory",
-  utilities.handleErrors(invController.addInventory)
+router.post("/add-inventory", utilities.handleErrors(invController.addInv));
+//route to work with inventoey.js file
+router.get(
+  "/getInventory/:classification_id",
+  utilities.handleErrors(invController.getInventoryJSON)
 );
 
 module.exports = router;

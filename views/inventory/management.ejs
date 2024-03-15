@@ -6,3 +6,19 @@
 <% } else {
           res.redirect('/')
         } %>
+
+<div class="management">
+  <a href="./add-class">Add New classification</a>
+  <a href="./add-inventory">Add New Vehicle</a>
+</div>
+
+<div class="manageInventory">
+  <h2>Manage Inventory</h2>
+  <p>Select a classification from the list to see what cars belong to it.</p>
+  <%- classificationSelect %>
+  <table id="inventoryDisplay"></table>
+</div>
+
+<noscript>JavaScript must be enabled to use this page.</noscript>
+
+<script src="../../js/inventory.js"></script>

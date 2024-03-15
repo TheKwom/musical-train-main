@@ -1,5 +1,7 @@
 const invModel = require("../models/inventory-model");
 const Util = {};
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 /* ************************
  * Constructs the nav HTML unordered list
@@ -126,6 +128,61 @@ Util.BuildInvInfo = async function (data) {
     info += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
   }
   return info;
+};
+
+/* **************************************
+ * build form inventory
+ * ************************************ */
+Util.addInventoryForm = async function (req, res, next) {
+  let data = await invModel.getClassifications();
+  let form = '<select id="newClass" name="classification_id" required >';
+  form += '<option value =""> Please select a classification </option>';
+  data.rows.forEach((row) => {
+    form +=
+      '<option value="' +
+      row.classification_id +
+      '">' +
+      row.classification_name +
+      "</option>";
+  });
+  form += "</select>";
+  return form;
+};
+
+/* ****************************************
+ * Middleware to check token validity
+ **************************************** */
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("Please log in");
+          res.clearCookie("jwt");
+          return res.redirect("/account/login");
+        }
+        res.locals.accountData = accountData;
+        res.locals.loggedin = 1;
+        next();
+      }
+    );
+  } else {
+    next();
+  }
+};
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next();
+  } else {
+    req.flash("notice", "Please log in.");
+    return res.redirect("/account/login");
+  }
 };
 
 /* ****************************************
