@@ -1,0 +1,29 @@
+<% if (title) { %> <% } else { res.redirect('/') } %> <%- messages() %>
+
+<div>
+  <% if (errors) { %>
+  <ul>
+    <% errors.array().forEach(error => { %>
+    <p>logged in</p>
+    <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+
+  <% } %>
+</div>
+<h1><%= title  %></h1>
+
+
+
+<% if ((locals.accountData.account_type == 'Client') ) { %>
+<h2>Welcome, <%- locals.accountData.account_firstname %></h2>
+<p class="management-btn"><a href="/account/update/<%- locals.accountData.account_id %>" title="manage Account">Edit account info</a></p>
+<% } 
+  if (locals.accountData.account_type == 'Employee' || locals.accountData.account_type == 'Admin'){ %>
+<h2>Welcome, <%- locals.accountData.account_firstname %></h2>
+<a class="management-btn" href="/account/update/<%- locals.accountData.account_id %>" title="manage Account">Edit account info</a>
+<h3>Manage Inventory</h3>
+<a class="management-btn" href="/inv/" title="manage inventory">Inventory Manage</a>
+
+
+<% } %>

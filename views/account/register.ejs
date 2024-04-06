@@ -7,7 +7,7 @@
 <%- messages() %>
 
 <% if (errors) { %>
-<ul class="notice">
+<ul>
   <% errors.array().forEach(error => { %>
   <li><%= error.msg %></li>
   <%  }) %>
@@ -29,7 +29,7 @@
       <span class="show-pass-btn">Show Password</span>
       <p>Passwords must be at least 12 characters and include
         one capital letter, one lowercase letter, one number, and one non-alphanumeric character.</p>
-      <hr>
+      <br>
       <button type="submit" class="form-button" name="register">Register</button>
     </form>
   </section>

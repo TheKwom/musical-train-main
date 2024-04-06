@@ -1,39 +1,53 @@
-// accountRoute.js
-// Needed Resources
 const express = require("express");
-const router = new express.Router();
-const utilities = require("../utilities");
+const router = express.Router();
 const accountController = require("../controllers/accountController");
+const utilities = require("../utilities");
 const regValidate = require("../utilities/account-validation");
 
-// Deliver login view
+/***************************
+ * GET methods
+ ****************************/
 router.get("/login", utilities.handleErrors(accountController.buildLogin));
-
-// Deliver register view
+router.get("/update/:account_id", accountController.buildUpdateAccount);
+router.get(
+  "/",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.accountManagement)
+);
 router.get(
   "/register",
   utilities.handleErrors(accountController.buildRegister)
 );
 
-// Deliver Logged In view
-router.get(
-  "/",
-  utilities.checkLogin,
-  utilities.handleErrors(accountController.loggedIn)
-);
-
-// Process the login request
-router.post("/login", (req, res) => {
-  res.status(200).send("Logged In");
-  res.redirect("/account");
-});
-
-// Process the registration data
+/***************************
+ * POST methods
+ ****************************/
 router.post(
   "/register",
   regValidate.registationRules(),
   regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount)
 );
+router.post(
+  "/login",
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  utilities.handleErrors(accountController.accountLogin)
+);
+router.post(
+  "/updateAccount",
+  regValidate.accountRules(),
+  regValidate.checkUpdateData,
+  utilities.handleErrors(accountController.updateAccount)
+);
+
+router.post(
+  "/change-password",
+  regValidate.passwordRules(),
+  regValidate.checkPasswordUpdateData,
+  utilities.handleErrors(accountController.updatePassword)
+);
+
+router.post("/logout", utilities.handleErrors(accountController.logout));
 
 module.exports = router;

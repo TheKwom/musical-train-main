@@ -1,48 +1,46 @@
-<!-- Content Heading -->
-<% if (title) { %>
+<% if (title) { %> <% } else { res.redirect('/') } %> <%- messages() %>
+
+<div>
+  <% if (errors) { %>
+  <ul>
+    <% errors.array().forEach(error => { %>
+    <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+
+  <% } %>
+</div>
+
 <h1><%= title %></h1>
-<% } else {
-      res.redirect('/')
-    } %>
-
-<!-- Message -->
-<%- messages() %>
-
 <div class="form-body">
   <section class="form-container">
     <form class="form" action="/inv/add-inventory" method="post">
-      <label for="classification"><b>Classification:</b></label>
-      <%- form %>
+      <label for="classification_id">Classfication:</label>
+      <select name="classification_id" id="classification_id" class="form-field">
+        <% for (let i = 0; i < classification_name.length; i++) { %>
+        <option value="<%= classification_name[i].classification_id %>"><%= classification_name[i].classification_name %></option>
+        <% } %>
+      </select><br>
+      <label for="inv_make">Make:</label>
+      <input class="form-field" id="inv_make" required name="inv_make" size="40" placeholder="Make" minlength="3" type="text" value="<%= locals.inv_make %>" /><br>
+      <label for="inv_model">Model:</label>
+      <input class="form-field" id="inv_model" required name="inv_model" size="40" minlength="3" placeholder="Model" type="text" value="<%=  locals.inv_model  %>" /><br>
 
-      <label for="inv_make"><b>Make:</b></label>
-      <input class="form-field" id="inv_make" type="text" placeholder="Min of 3 characters" name="inv_make" required value="<%= locals.inv_make %>">
+      <label for="inv_description">Description:</label>
+      <input class="form-field" id="inv_description" required name="inv_description" size="40" placeholder="Description" type="text" value="<%= locals.inv_description  %>" /><br>
+      <label for="inv_image">Image Path:</label>
+      <input class="form-field" id="inv_image" required name="inv_image" size="40" minlength="3" placeholder="Image Path" type="text" value="<%= locals.inv_image  %>" /><br>
+      <label for="inv_thumbnail">inv thumbnall:</label>
+      <input class="form-field" id="inv_thumbnail" required name="inv_thumbnail" size="40" minlength="3" placeholder="Image Path" type="text" value="<%= locals.inv_thumbnail  %>" /><br>
 
-      <label for=" inv_model"><b>Model:</b></label>
-      <input class="form-field" id="inv_model" type="text" placeholder="Min of 3 characters" name="inv_model" required value="<%= locals.inv_model %>">
-
-      <label for="inv_year"><b>Year:</b></label>
-      <input class="form-field" id="inv_year" type="text" placeholder="4-digit year" name="inv_year" required value="<%= locals.inv_year %>">
-
-      <label for="inv_description"><b>Description:</b></label>
-      <input class="form-field" id="inv_description" type="text" name="inv_description" required value="<%= locals.inv_description %>">
-
-      <label for="inv_image"><b>Image Path:</b></label>
-      <span>If no image use this path /images/vehicles/no-image.jpg</span>
-      <input class="form-field" id="inv_image" type="text" name="inv_image" required value="<%= locals.inv_image %>">
-
-      <label for="inv_thumbnail"><b>Thumbnail Path:</b></label>
-      <span>If no image use this path /images/vehicles/no-image-tn.jpg</span>
-      <input class="form-field" id="inv_thumbnail" type="text" name="inv_thumbnail" required value="<%= locals.inv_thumbnail %>">
-
-      <label for="inv_price"><b>Price:</b></label>
-      <input class="form-field" id="inv_price" type="text" placeholder="Decimal or integer" name="inv_price" required value="<%= locals.inv_price %>">
-
-      <label for="inv_miles"><b>Miles:</b></label>
-      <input class="form-field" id="inv_miles" type="text" placeholder="Digits only" name="inv_miles" required value="<%= locals.inv_miles %>">
-
-      <label for="inv_color"><b>Color:</b></label>
-      <input class="form-field" id="inv_color" type="text" name="inv_color" required>
-
+      <label for="inv_price">Price:</label>
+      <input class="form-field" id="inv_price" required minlength="3" name="inv_price" placeholder="Price" type="number" value="<%= locals.inv_price  %>" /><br>
+      <label for="inv_year">Year:</label>
+      <input class="form-field" id="inv_year" required name="inv_year" minlength="4" placeholder="Year" type="number" value="<%= locals.inv_year  %>" /><br>
+      <label for="inv_miles">Miles:</label>
+      <input class="form-field" id="inv_miles" required minlength="2" name="inv_miles" placeholder="Miles" type="number" value="<%= locals.inv_miles  %>" /><br>
+      <label for="inv_color">Color:</label>
+      <input class="form-field" id="inv_color" required name="inv_color" size="20" placeholder="Color" type="text" value="<%= locals.inv_color  %>" /><br>
       <button class="form-button" type="submit">Add Vehicle</button>
     </form>
   </section>

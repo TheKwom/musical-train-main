@@ -1,0 +1,21 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<!-- Message -->
+<%- messages() %>
+
+<% } else {
+                res.redirect('/')
+              } %>
+
+<div class="form-body">
+  <section class="form-container">
+    <form class="form" action="delete-classification" method="post">
+      <span>To remove the classification, the classification must not have any added vehicle</span> <br>
+      <label>
+        <span>Classification:</span>
+        <% if(classificationSelect) { %> <%- classificationSelect %> <% } %>
+      </label> <br>
+      <button class="form-button" type="submit">Delete</button>
+    </form>
+  </section>
+</div>

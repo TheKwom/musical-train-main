@@ -8,11 +8,11 @@
 
 <div class="form-body">
   <section class="form-container">
-    <form id="loginForm" action="/account/login" method="post">
+    <form id="loginForm" class="form-login" action="/account/login" method="post">
       <label for="account_email">Email: </label>
       <input type="email" class="form-field" id="account_email" name="account_email" placeholder="email@email.com" required value="<%= locals.account_email %>"><br>
       <label for="account_password">Password: </label>
-      <input type="password" class="form-field" id="account_password" required placeholder="Enter your password here" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"><br>
+      <input type="password" class="form-field" id="account_password" name="account_password" placeholder="Password" type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"><br>
       <span class="show-pass-btn">Show Password</span>
       <p>Passwords must be at least 12 characters and include
         one capital letter, one lowercase letter, one number, and one non-alphanumeric character.</p>

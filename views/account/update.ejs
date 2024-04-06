@@ -1,0 +1,70 @@
+<!-- THE CONTENT HEADING -->
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+      res.redirect('/')
+    } %>
+
+
+<!-- Messages or error mesages  -->
+<%- messages() %>
+
+<% if (errors) { %>
+<ul>
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <%  }) %>
+</ul>
+<% } %>
+
+<h2>Update first name, last name and email</h2>
+
+<div class="form-body">
+  <section class="form-container">
+    <form class="form" id="updateAcc" action="/account/updateAccount" method="post">
+
+      <label for="account_firstname"> First Name:</label>
+      <input type="text" class="form-field" id="account_firstname" name="account_firstname" placeholder="Mike" required value="<%= locals.account_firstname %>"><br>
+
+      <label for="account_lastname"> Last Name:</label>
+      <input type="text" class="form-field" id="account_lastname" name="account_lastname" placeholder="Davis" required value="<%= locals.account_lastname %>"><br>
+
+      <label for="account_email">Email</label>
+      <input type="email" class="form-field" id="account_email" name="account_email" placeholder="email@email.com" required value="<%= locals.account_email %>"><br>
+
+      <button class="form-button" type="submit" value="Update account"> Submit</button>
+      <input type="hidden" name="account_id" <% if(locals.accountData) { %> value="<%= locals.accountData.account_id %>" <% } %>>
+    </form>
+  </section>
+</div>
+
+<h2>Update password</h2>
+<div class="form-body">
+  <section class="form-container">
+    <form class="form" id="passwordChange" action="/account/updatePassword" method="post">
+      <label for="loginPassword">Password:</label>
+      <input type="password" class="form-field" id="account_password" name="account_password" placeholder="Choose your password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+      <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span> <br>
+      <span class="show-pass-btn">Show Password</span>
+      <br>
+      <button class="form-button" type="submit" value="change password"> Submit</button>
+
+      <input type="hidden" name="account_id" <% if(locals.accountData) { %> value="<%= locals.accountData.account_id %>" <% } %>>
+    </form>
+  </section>
+</div>
+<script>
+  // Password Show/hide
+  const passButton = document.querySelector(".show-pass-btn");
+  passButton.addEventListener("click", function() {
+    const passInput = document.getElementById("account_password");
+    const type = passInput.getAttribute("type");
+    if (type === "password") {
+      passInput.setAttribute("type", "text");
+      passButton.innerHTML = "Hide Password";
+    } else {
+      passInput.setAttribute("type", "password");
+      passButton.innerHTML = "Show Password";
+    }
+  });
+</script>

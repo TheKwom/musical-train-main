@@ -34,15 +34,15 @@ Util.buildClassificationGrid = async function (data) {
   if (data.length > 0) {
     grid = '<ul id="inv-display">';
     data.forEach((vehicle) => {
-      grid += "<li>";
+      grid += '<li class="card-info">';
       grid +=
-        '<a href="../../inv/detail/' +
+        '<a href="../../detail/' +
         vehicle.inv_id +
         '" title="View ' +
         vehicle.inv_make +
         " " +
         vehicle.inv_model +
-        'details"><img src="' +
+        'details"><img class="img-inventory" src="' +
         vehicle.inv_thumbnail +
         '" alt="Image of ' +
         vehicle.inv_make +
@@ -53,7 +53,7 @@ Util.buildClassificationGrid = async function (data) {
       grid += "<hr />";
       grid += "<h2>";
       grid +=
-        '<a href="../../inv/detail/' +
+        '<a href="../../detail/' +
         vehicle.inv_id +
         '" title="View ' +
         vehicle.inv_make +
@@ -66,7 +66,7 @@ Util.buildClassificationGrid = async function (data) {
         "</a>";
       grid += "</h2>";
       grid +=
-        "<span>$" +
+        '<span class="car-price" >$' +
         new Intl.NumberFormat("en-US").format(vehicle.inv_price) +
         "</span>";
       grid += "</div>";
@@ -149,6 +149,30 @@ Util.addInventoryForm = async function (req, res, next) {
   return form;
 };
 
+/* **************************************
+ * build classification list
+ * ************************************ */
+Util.buildClassificationList = async function (selected_id = "") {
+  let block;
+  let data = await invModel.getClassifications();
+  if (data.rowCount > 0) {
+    block = '<select id="classificationList" name="classification_id">';
+    block += '<option value="">Select..</option>';
+    data.rows.forEach((row) => {
+      selected = row.classification_id == selected_id ? "selected" : "";
+      block +=
+        '<option value="' + row.classification_id + '" ' + selected + ">";
+      block += row.classification_name;
+      block += "</option>";
+    });
+    block += "</select>";
+  } else {
+    block =
+      '<p class="notice">Sorry, we are unable to retrieve a list of classifications at this time, please check the connection to the database.</p>';
+  }
+  return block;
+};
+
 /* ****************************************
  * Middleware to check token validity
  **************************************** */
@@ -178,6 +202,42 @@ Util.checkJWTToken = (req, res, next) => {
  * ************************************ */
 Util.checkLogin = (req, res, next) => {
   if (res.locals.loggedin) {
+    next();
+  } else {
+    req.flash("notice", "Please log in.");
+    return res.redirect("/account/login");
+  }
+};
+
+/* ****************************************
+ *  Check if they are allowed or not on a page by account type
+ * ************************************ */
+Util.checkAccountType = (req, res, next) => {
+  if (
+    res.locals.accountData.account_type === "Admin" ||
+    res.locals.accountData.account_type === "Employee"
+  ) {
+    next();
+  } else {
+    req.flash("notice", "You do not have permission to view this page.");
+    return res.redirect("/");
+  }
+};
+
+/* **************************************
+ *  Deletes the cookies and jwt
+ * **************************************/
+Util.deleteJwt = (req, res, next) => {
+  if (req.cookies.jwt) {
+    res.clearCookie("jwt", { httpOnly: true });
+    return res.status(403).redirect("/");
+  } else {
+    next();
+  }
+};
+
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.accountData) {
     next();
   } else {
     req.flash("notice", "Please log in.");

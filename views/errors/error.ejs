@@ -1,0 +1,11 @@
+<% if(title){ %>
+<h1><%= title %></h1>
+<%} else {
+          res.redirect('/')
+      } %>
+
+<%- messages() %>
+
+<div>
+  <p>Oops! Seems like we took a wrong turn. <br>Don't worry, it's not you, it's us. Let's find our way back!</p>
+</div>

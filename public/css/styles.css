@@ -14,7 +14,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0;
+  margin: 0px 4px 0px 4px;
 }
 
 #top-header a:visited,
@@ -53,6 +53,7 @@ nav > ul > li {
 
 nav > ul > li > a {
   text-decoration: none;
+  color: white;
 }
 
 nav > ul > li > a:visited {
@@ -279,10 +280,83 @@ nav > ul > li > a:visited {
   background-color: #0056b3;
 }
 
+.cancel-button {
+  background-color: red;
+}
+
 .show-pass-btn {
   cursor: pointer;
   color: #007bff;
   margin-top: 5px;
+}
+
+.edit-buttons-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.management-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 0 0 10px;
+  text-align: center;
+}
+
+.management-btn a {
+  text-decoration: none;
+  text-align: center;
+}
+
+.management-btn a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+.classification-select-container {
+  margin-left: 8px;
+}
+
+#tools {
+  display: block;
+  width: 200px;
+  align-items: flex-end !important;
+}
+
+.welcome-message-header {
+  font-size: small;
+  float: right;
+  margin-bottom: 2px;
+}
+
+.manage-account-header {
+  float: right;
+  font-weight: 700;
+  text-decoration: underline !important;
+  margin-bottom: 4px;
+}
+
+.logout-btn-container {
+  float: right;
+}
+
+.logout-btn {
+  border: none;
+  padding: 7px 14px;
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.my-account-header {
+  float: right;
 }
 
 @media screen and (min-width: 700px) {
