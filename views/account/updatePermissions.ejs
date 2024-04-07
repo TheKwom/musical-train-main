@@ -1,0 +1,36 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+          res.redirect('/')
+        } %>
+
+
+<!-- Messages or error mesages  -->
+<%- messages() %>
+
+<% if (errors) { %>
+<ul>
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <%  }) %>
+</ul>
+<% } %>
+
+<div class="form-body">
+  <section class="form-container">
+    <form class="form" id="updateAccountForm" action="/account/update-account-type" method="post">
+      <label>Account Type</label>
+      <span class="form-field"><% if(accountTypeSelect) { %> <%- accountTypeSelect %> <% } %></span><br>
+      <div class="edit-buttons-container">
+        <a href="javascript:history.back()">
+          <button class="form-button cancel-button" id="historyBack" type="button" name="cancel">Cancel</button>
+        </a>
+        <button class="form-button" id="updateAccountFormButton" type="submit" name="submit">Submit</button>
+      </div>
+      <input type="hidden" name="account_id" <% if(locals.account_id) { %> value="<%= locals.account_id %>" <% } %>>
+    </form>
+  </section>
+</div>
+
+<noscript>JavaScript must be enabled to use this page.</noscript>
+<script src="../../js/act-update.js"></script>

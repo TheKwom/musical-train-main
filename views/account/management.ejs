@@ -19,11 +19,23 @@
 <h2>Welcome, <%- locals.accountData.account_firstname %></h2>
 <p class="management-btn"><a href="/account/update/<%- locals.accountData.account_id %>" title="manage Account">Edit account info</a></p>
 <% } 
-  if (locals.accountData.account_type == 'Employee' || locals.accountData.account_type == 'Admin'){ %>
+if (locals.accountData.account_type == 'Employee' || locals.accountData.account_type == 'Admin'){ %>
 <h2>Welcome, <%- locals.accountData.account_firstname %></h2>
 <a class="management-btn" href="/account/update/<%- locals.accountData.account_id %>" title="manage Account">Edit account info</a>
 <h3>Manage Inventory</h3>
 <a class="management-btn" href="/inv/" title="manage inventory">Inventory Manage</a>
-
-
+<% } 
+if (locals.accountData.account_type == 'Admin'){ %>
+<h3>Manage User Permissions</h3>
+<select id="accountTypeList">
+  <option value="">Select..</option>
+  <option value="Admin">Admin</option>
+  <option value="Employee">Employee</option>
+  <option value="Client">Client</option>
+</select>
+<table id="userDisplay">
+</table>
 <% } %>
+
+<noscript>JavaScript must be enabled to use this page.</noscript>
+<script src="../../js/account.js"></script>

@@ -93,13 +93,66 @@ async function updateAccount(
   }
 }
 
-// This will update account password
+/* *****************************
+ * Updates password info
+ * ***************************** */
 async function updatePassword(account_id, account_password) {
   try {
     const sql =
       "UPDATE public.account SET account_password = $1 WHERE account_id = $2 RETURNING *";
     const data = await pool.query(sql, [account_password, account_id]);
     return data.rows[0];
+  } catch (error) {
+    console.error("model " + error);
+  }
+}
+
+/* *****************************
+ * Get users using account_id
+ * ***************************** */
+async function getUsersByAccountType(account_type) {
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.account AS i
+        WHERE i.account_type = $1`,
+      [account_type]
+    );
+    return data.rows;
+  } catch (error) {
+    console.error("model " + error);
+  }
+}
+
+/* *****************************
+ * Get distinct account_types
+ * ***************************** */
+async function getUniqueAccountTypes() {
+  try {
+    const data = await pool.query(
+      `SELECT DISTINCT account_type FROM public.account`
+    );
+    return data.rows.map((row) => row.account_type);
+  } catch (error) {
+    console.error("model " + error);
+    return [];
+  }
+}
+
+/* *****************************
+ * Update account type
+ * ***************************** */
+async function updateAccountType(account_id, account_type) {
+  console.log("----------------------------");
+  console.log("account-model/updateAccountType");
+  console.log("----------------------------");
+  console.log(account_id);
+  console.log(account_type);
+  console.log("----------------------------");
+  try {
+    const sql =
+      "UPDATE public.account SET account_type = $1 WHERE account_id = $2 RETURNING *";
+    const data = await pool.query(sql, [account_type, account_id]);
+    return data;
   } catch (error) {
     console.error("model " + error);
   }
@@ -112,4 +165,7 @@ module.exports = {
   getAccountById,
   updateAccount,
   updatePassword,
+  getUsersByAccountType,
+  getUniqueAccountTypes,
+  updateAccountType,
 };

@@ -17,9 +17,6 @@ router.get(
 router.get(
   "/add-inventory",
   utilities.handleErrors(invController.getClassifications),
-  (req, res) => {
-    console.log("add-inv");
-  },
   utilities.handleErrors(invController.buildAddInventory)
 );
 router.get(

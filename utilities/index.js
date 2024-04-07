@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model");
+const accountModel = require("../models/account-model");
 const Util = {};
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -169,6 +170,32 @@ Util.buildClassificationList = async function (selected_id = "") {
   } else {
     block =
       '<p class="notice">Sorry, we are unable to retrieve a list of classifications at this time, please check the connection to the database.</p>';
+  }
+  return block;
+};
+
+/* **************************************
+ * build account type list
+ * ************************************/
+Util.buildAccountTypeList = async function (selected_account_type = "") {
+  let block;
+  let data = await accountModel.getUniqueAccountTypes();
+  console.log(data);
+  console.log(data.length);
+  if (data.length > 0) {
+    block = '<select id="accountTypeList" name="account_type">';
+    block += '<option value="">Select..</option>';
+    for (let i = 0; i < data.length; i++) {
+      let row = data[i];
+      selected = row == selected_account_type ? "selected" : "";
+      block += '<option value="' + row + '" ' + selected + ">";
+      block += row;
+      block += "</option>";
+    }
+    block += "</select>";
+  } else {
+    block =
+      '<p class="notice">Sorry, we are unable to retrieve a list of account types at this time, please check the connection to the database.</p>';
   }
   return block;
 };

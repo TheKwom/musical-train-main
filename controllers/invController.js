@@ -270,7 +270,7 @@ invCont.updateInventory = async function (req, res, next) {
     );
     const itemName = `${inv_make} ${inv_model}`;
     req.flash("notice", "Sorry, the insert failed.");
-    res.status(501).render("inventory/edit", {
+    res.status(501).render("./inventory/edit", {
       title: "Edit " + itemName,
       nav,
       classificationSelect: classificationSelect,

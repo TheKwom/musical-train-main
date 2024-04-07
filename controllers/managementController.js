@@ -15,4 +15,7 @@ managementController.buildManagement = async function buildManagement(
     classificationSelect,
   });
 };
+
+managementController.build;
+
 module.exports = managementController;

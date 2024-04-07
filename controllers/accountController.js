@@ -7,10 +7,12 @@ require("dotenv").config();
 
 async function accountManagement(req, res, next) {
   let nav = await utilities.getNav();
+  // const accountTypeSelect = await utilities.buildAccountTypeList;
   res.render("account/management", {
     title: "Account Management",
     nav,
     errors: null,
+    // accountTypeSelect,
   });
 }
 
@@ -267,6 +269,76 @@ async function changePassword(req, res, next) {
   }
 }
 
+/* ***************************
+ *  Get user JSON & order by account type
+ * ************************** */
+async function getUsersJSON(req, res, next) {
+  console.log("-----------> getUsersJSON");
+  const account_type = req.params.account_type;
+  const accountData = await accountModel.getUsersByAccountType(account_type);
+  // console.log(accountData);
+  if (accountData[0].account_type) {
+    return res.json(accountData);
+  } else {
+    next(new Error("No data returned"));
+  }
+}
+
+/* ***************************
+ *  Build change permissions
+ * ************************** */
+async function buildPermissionsPage(req, res) {
+  const account_id = parseInt(req.params.account_id);
+  let nav = await utilities.getNav();
+  const userData = await accountModel.getAccountById(account_id);
+  console.log(userData);
+  const accountTypeSelect = await utilities.buildAccountTypeList();
+  const userName = `${userData.account_firstname} ${userData.account_lastname}`;
+  res.render("./account/updatePermissions", {
+    title: "Update " + userName,
+    nav,
+    accountTypeSelect,
+    errors: null,
+    account_id: userData.account_id,
+    account_firstname: userData.account_firstname,
+    account_lastname: userData.account_lastname,
+    account_type: userData.account_type,
+  });
+}
+
+/* ***************************
+ *  Update account type
+ * ************************** */
+async function updateAccountType(req, res) {
+  let nav = await utilities.getNav();
+  const { account_id, account_type } = req.body;
+  console.log("----------------------------");
+  console.log("accountController/updateAccountType");
+  console.log("----------------------------");
+  console.log(account_id);
+  console.log(account_type);
+  console.log("----------------------------");
+  const updateResult = await accountModel.updateAccountType(
+    account_id,
+    account_type
+  );
+  if (updateResult) {
+    req.flash("notice", `Update was successful`);
+    res.redirect("/account/");
+  } else {
+    const accountTypeSelect = await utilities.buildAccountTypeList;
+    req.flash("notice", "Sorry, the update failed.");
+    res.status(501).render("./account/updatePermissions", {
+      title: "Update",
+      nav,
+      accountTypeSelect: accountTypeSelect,
+      errors: null,
+      account_id: userData.account_id,
+      account_type: userData.account_type,
+    });
+  }
+}
+
 module.exports = {
   buildLogin,
   updateAccount,
@@ -277,4 +349,7 @@ module.exports = {
   registerAccount,
   accountLogin,
   accountManagement,
+  getUsersJSON,
+  buildPermissionsPage,
+  updateAccountType,
 };

@@ -20,6 +20,20 @@ router.get(
 );
 
 /***************************
+ * Enhancement GET methods
+ ****************************/
+router.get(
+  "/update-account-type/:account_id",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildPermissionsPage)
+);
+
+router.get(
+  "/get-users/:account_type",
+  utilities.handleErrors(accountController.getUsersJSON)
+);
+
+/***************************
  * POST methods
  ****************************/
 router.post(
@@ -46,6 +60,14 @@ router.post(
   regValidate.passwordRules(),
   regValidate.checkPasswordUpdateData,
   utilities.handleErrors(accountController.updatePassword)
+);
+
+/***************************
+ * Enhancement POST methods
+ ****************************/
+router.post(
+  "/update-account-type",
+  utilities.handleErrors(accountController.updateAccountType)
 );
 
 router.post("/logout", utilities.handleErrors(accountController.logout));
